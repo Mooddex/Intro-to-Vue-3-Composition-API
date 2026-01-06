@@ -12,7 +12,7 @@ const props = defineProps({
 
 const product = ref('Socks')
 const brand = ref('Vue Mastery')
-
+const emit = defineEmits(['add-to-cart', 'remove-item'])
 const selectedVariant = ref(0)
   
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
@@ -43,10 +43,15 @@ const shipping = computed(() => {
   }
 })
 
-const addToCart = () => cart.value += 1
+const addToCart = () => {
+  emit('add-to-cart',variants.value[selectedVariant.value].id )
+}
 
 const updateVariant = (index) => {
   selectedVariant.value = index
+}
+const removeItem = ()=>{
+  emit('remove-item', variants.value[selectedVariant.value].id)
 }
 </script>
 
@@ -79,6 +84,14 @@ const updateVariant = (index) => {
           v-on:click="addToCart"
         >
           Add to cart
+        </button>
+         <button
+          class="button" 
+          :class="{ disabledButton: !inStock }"
+          :disabled="!inStock"
+          v-on:click="removeItem"
+        >
+          remove from cart
         </button>
       </div>
     </div>
