@@ -5,15 +5,15 @@ import socksGreenImage from './assets/images/socks_green.jpeg'
 const product = ref('Socks')
 const image = ref(socksGreenImage)
 const inStock = true
-  
-const details = ref(['50% cotton', '30% wool', '20% polyester'])
+  const cart = ref(6)
 
+const details = ref(['50% cotton', '30% wool', '20% polyester'])
+const decrementCart = ()=>  cart.value -= 1
 const variants = ref([
   { id: 2234, color: 'green' },
   { id: 2235, color: 'blue' },
 ])
 
-const cart = ref(0)
 </script>
   
 <template>
@@ -37,7 +37,7 @@ const cart = ref(0)
         >
           {{ variant.color }}
         </div>
-        <button class="button">Add to Cart</button>
+        <button @click="decrementCart" class="button">out  of Cart</button>
       </div>
     </div>
   </div>
